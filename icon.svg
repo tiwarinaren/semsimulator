@@ -1,0 +1,24 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#667eea" stroke="#4c51bf" stroke-width="16"/>
+
+  <!-- Medical cross -->
+  <rect x="232" y="200" width="48" height="112" fill="white" rx="8"/>
+  <rect x="216" y="232" width="80" height="48" fill="white" rx="8"/>
+
+  <!-- Heartbeat line -->
+  <path d="M 180 280 Q 190 260 200 280 Q 210 300 220 280 Q 230 260 240 280 L 280 280 Q 290 300 300 280 Q 310 260 320 280 L 340 280"
+        stroke="white" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Data bars -->
+  <rect x="160" y="320" width="8" height="20" fill="white" opacity="0.8"/>
+  <rect x="180" y="310" width="8" height="30" fill="white" opacity="0.8"/>
+  <rect x="200" y="305" width="8" height="35" fill="white" opacity="0.8"/>
+  <rect x="220" y="315" width="8" height="25" fill="white" opacity="0.8"/>
+  <rect x="240" y="300" width="8" height="40" fill="white" opacity="0.8"/>
+  <rect x="260" y="320" width="8" height="20" fill="white" opacity="0.8"/>
+  <rect x="280" y="310" width="8" height="30" fill="white" opacity="0.8"/>
+  <rect x="300" y="305" width="8" height="35" fill="white" opacity="0.8"/>
+  <rect x="320" y="315" width="8" height="25" fill="white" opacity="0.8"/>
+  <rect x="340" y="300" width="8" height="40" fill="white" opacity="0.8"/>
+</svg>
