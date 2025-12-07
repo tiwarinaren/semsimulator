@@ -193,6 +193,27 @@
             }
         }
 
+        function testAddToHomeScreen() {
+            console.log('Manual test: Creating AddToHomeScreen instance...');
+            const addToHomeScreen = AddToHomeScreen({
+                appName: "Semiglutide Simulator",
+                appIconUrl: "icon.svg",
+                assetUrl: "https://unpkg.com/add-to-homescreen@1.0.0/dist/assets/",
+                appNameDisplay: "inline",
+                maxModalDisplayCount: 1,
+                allowClose: true,
+                showArrow: false,
+                displayOptions: {
+                    showMobile: true,
+                    showDesktop: true
+                }
+            });
+
+            console.log('Manual test: Showing popup...');
+            const result = addToHomeScreen.show();
+            console.log('Manual test result:', result);
+        }
+
         class SemiglutideSimulator {
             constructor() {
                 // Load from local storage or initialize defaults
@@ -984,32 +1005,32 @@
             displayRandomQuote();
 
             // Initialize Add to Home Screen functionality
-            // Only show on mobile devices and when not already installed
-            if (window.navigator.standalone !== true &&
-                !window.matchMedia('(display-mode: standalone)').matches &&
-                (window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+            console.log('Initializing Add to Home Screen...');
+            console.log('User Agent:', navigator.userAgent);
+            console.log('Standalone:', window.navigator.standalone);
+            console.log('Display mode:', window.matchMedia('(display-mode: standalone)').matches);
 
-                setTimeout(() => {
-                    const addToHomeScreen = AddToHomeScreen({
-                        appName: "Semiglutide Simulator",
-                        appIconUrl: "icon.svg",
-                        assetUrl: "https://cdn.jsdelivr.net/npm/add-to-homescreen@1.0.0/dist/assets/",
-                        appNameDisplay: "inline",
-                        maxModalDisplayCount: 1, // Only show once
-                        allowClose: true,
-                        showArrow: false, // Disable arrow to avoid positioning issues
-                        displayOptions: {
-                            showMobile: true,
-                            showDesktop: false
-                        }
-                    });
-
-                    // Only show if not already installed
-                    if (!addToHomeScreen.isStandAlone()) {
-                        addToHomeScreen.show();
+            // Force show for testing - remove device detection for now
+            setTimeout(() => {
+                console.log('Creating AddToHomeScreen instance...');
+                const addToHomeScreen = AddToHomeScreen({
+                    appName: "Semiglutide Simulator",
+                    appIconUrl: "icon.svg",
+                    assetUrl: "https://unpkg.com/add-to-homescreen@1.0.0/dist/assets/",
+                    appNameDisplay: "inline",
+                    maxModalDisplayCount: 1,
+                    allowClose: true,
+                    showArrow: false,
+                    displayOptions: {
+                        showMobile: true,
+                        showDesktop: true
                     }
-                }, 5000); // Longer delay
-            }
+                });
+
+                console.log('AddToHomeScreen created, checking if standalone...');
+                const deviceInfo = addToHomeScreen.show();
+                console.log('Device info:', deviceInfo);
+            }, 2000); // Shorter delay for testing
         });
     </script>
     <style>
@@ -1118,6 +1139,11 @@
                     <svg class="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </button>
+                <button class="p-1.5 rounded-full bg-blue-500 text-white shadow-sm hover:shadow-md transition-shadow" onclick="testAddToHomeScreen()" title="Test Add to Home Screen">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                     </svg>
                 </button>
             </div>
