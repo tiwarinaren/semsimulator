@@ -225,10 +225,20 @@
                 this.startSimulation();
                 updateTimeControlsVisibility(); // Update time controls visibility on init
 
-                // Add login chain of thoughts
+                // Add login chain of thoughts and welcome messages only on first visit of the day
                 this.addLoginThoughts();
-                this.addLogEntry("System initialized - Welcome to Semiglutide Simulator");
-                this.addLogEntry(`Week ${this.week} treatment started - ${this.dose}mg dose active`);
+
+                // Check if this is the first visit today
+                const today = new Date().toDateString();
+                const lastVisit = localStorage.getItem('lastVisitDate');
+
+                if (lastVisit !== today) {
+                    // First visit today - show welcome messages
+                    this.addLogEntry("System initialized - Welcome to Semiglutide Simulator");
+                    this.addLogEntry(`Week ${this.week} treatment started - ${this.dose}mg dose active`);
+                    // Update last visit date
+                    localStorage.setItem('lastVisitDate', today);
+                }
             }
 
             loadFromLocalStorage() {
@@ -1079,7 +1089,7 @@
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 transition-colors">
-    <div class="container mx-auto px-2 py-2 max-w-sm">
+    <div class="container mx-auto px-2 py-2 max-w-md">
         <!-- Header with Eat Meal Button -->
         <div class="flex justify-between items-center mb-2">
             <div>
@@ -1245,7 +1255,7 @@
                 <h3 class="font-semibold text-gray-800 dark:text-gray-200 text-sm">Thought Chain</h3>
                 <button onclick="clearMessages()" class="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">Clear</button>
             </div>
-            <div id="messageContainer" class="space-y-1 scrollbar-thin max-h-24 overflow-y-auto">
+            <div id="messageContainer" class="space-y-1 scrollbar-thin max-h-48 overflow-y-auto">
                 <!-- Messages will be added here -->
             </div>
         </div>
