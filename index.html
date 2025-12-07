@@ -984,20 +984,32 @@
             displayRandomQuote();
 
             // Initialize Add to Home Screen functionality
-            const addToHomeScreen = AddToHomeScreen({
-                appName: "Semiglutide Simulator",
-                appIconUrl: "icon.svg",
-                assetUrl: "https://cdn.jsdelivr.net/npm/add-to-homescreen@1.0.0/dist/assets/",
-                appNameDisplay: "inline",
-                maxModalDisplayCount: 3,
-                allowClose: true,
-                showArrow: true
-            });
+            // Only show on mobile devices and when not already installed
+            if (window.navigator.standalone !== true &&
+                !window.matchMedia('(display-mode: standalone)').matches &&
+                (window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
 
-            // Show the prompt after a short delay
-            setTimeout(() => {
-                addToHomeScreen.show();
-            }, 3000);
+                setTimeout(() => {
+                    const addToHomeScreen = AddToHomeScreen({
+                        appName: "Semiglutide Simulator",
+                        appIconUrl: "icon.svg",
+                        assetUrl: "https://cdn.jsdelivr.net/npm/add-to-homescreen@1.0.0/dist/assets/",
+                        appNameDisplay: "inline",
+                        maxModalDisplayCount: 1, // Only show once
+                        allowClose: true,
+                        showArrow: false, // Disable arrow to avoid positioning issues
+                        displayOptions: {
+                            showMobile: true,
+                            showDesktop: false
+                        }
+                    });
+
+                    // Only show if not already installed
+                    if (!addToHomeScreen.isStandAlone()) {
+                        addToHomeScreen.show();
+                    }
+                }, 5000); // Longer delay
+            }
         });
     </script>
     <style>
