@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semiglutide Simulator</title>
 
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="manifest.json">
+    <!-- Web App Manifest - Only load on proper domains (not file://) -->
+    <link rel="manifest" href="manifest.json" id="manifest-link">
 
     <!-- iOS Web App Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -442,13 +442,14 @@
 
             eatMeal() {
                 const hungerBefore = this.hungerLevel;
-                this.lastMealTime = new Date(this.currentTime);
+                const currentTime = new Date(); // Use actual current time for meal
+                this.lastMealTime = new Date(currentTime);
 
                 // More realistic hunger reduction
                 this.hungerLevel = Math.max(5, this.hungerLevel - 15); // Less dramatic reduction
 
                 // Add to meal history
-                const mealTime = this.currentTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                const mealTime = currentTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 this.mealHistory.push({
                     time: mealTime,
                     type: "Meal",
@@ -979,10 +980,17 @@
 
         // Initialize when page loads
         window.addEventListener('load', () => {
+            // Remove manifest link for local file:// protocol to prevent 404 errors
+            if (window.location.protocol === 'file:') {
+                const manifestLink = document.getElementById('manifest-link');
+                if (manifestLink) {
+                    manifestLink.remove();
+                }
+            }
+
             loadDarkModePreference();
             simulator = new SemiglutideSimulator();
             displayRandomQuote();
-
         });
     </script>
     <style>
