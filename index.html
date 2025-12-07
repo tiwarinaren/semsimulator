@@ -25,6 +25,7 @@
             darkMode: 'class'
         }
     </script>
+    <script src="add-to-homescreen.js"></script>
     <script>
         // Global simulator instance
         let simulator;
@@ -981,6 +982,22 @@
             loadDarkModePreference();
             simulator = new SemiglutideSimulator();
             displayRandomQuote();
+
+            // Initialize Add to Home Screen functionality
+            const addToHomeScreen = AddToHomeScreen({
+                appName: "Semiglutide Simulator",
+                appIconUrl: "icon.svg",
+                assetUrl: "https://cdn.jsdelivr.net/npm/add-to-homescreen@1.0.0/dist/assets/",
+                appNameDisplay: "inline",
+                maxModalDisplayCount: 3,
+                allowClose: true,
+                showArrow: true
+            });
+
+            // Show the prompt after a short delay
+            setTimeout(() => {
+                addToHomeScreen.show();
+            }, 3000);
         });
     </script>
     <style>
