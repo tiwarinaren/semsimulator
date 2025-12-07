@@ -1,8 +1,9 @@
 {
   "name": "Semiglutide Simulator",
-  "short_name": "Semiglutide Sim",
+  "short_name": "Sem Sim",
   "description": "A comprehensive simulator for tracking semiglutide treatment progress, appetite, energy levels, and weight loss goals.",
-  "start_url": "/",
+  "start_url": "https://tiwarinaren.github.io/semsimulator/",
+  "scope": "https://tiwarinaren.github.io/semsimulator/",
   "display": "standalone",
   "background_color": "#f5f7fa",
   "theme_color": "#667eea",
